@@ -18,4 +18,5 @@ README.rst
 data-pipeline-base
 automated_build.txt
 .DS_Store
+output.xlsx
 credentials.json

@@ -25,6 +25,10 @@ start: compose-up
 ## Only run image
 run: compose-up-no-build
 
+## Executre job with not container
+run-local:
+	python app/main.py
+
 ## Publishes container
 docker-publish:
 	@scripts/commands/docker-publish.sh

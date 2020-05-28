@@ -66,27 +66,6 @@ class Database:
         cursor.close()
         return pd_result
 
-    def insert_data(self, data_dict: pd.DataFrame) -> None:
-        self.log.info('INSERT INTO %s', self.conf.table)
-        page_size: int = 10000
-        with self.connection.cursor() as cursor:
-            psycopg2.extras \
-                .execute_values(cursor,
-                                """ INSERT INTO """ + self.conf.table +
-                                """ ( timedate,
-                                      current_version
-                                    )
-                                    VALUES %s; """, ((
-                                        row.timedate,
-                                        row.current_version
-                                    ) for row in data_dict.itertuples()),
-                                page_size=page_size)
-            self.log.info('INSERT %s COMMIT.', self.conf.table)
-            self.connection.commit()
-            self.log.info('CLOSE CURSOR %s', self.conf.table)
-            cursor.close()
-
-
     def close_connection(self):
         """
         Method that close connection to postgresql database.

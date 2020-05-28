@@ -1,47 +1,123 @@
-from infraestructure.conf import getConf
 from utils.read_params import ReadParams
 
 
-class Query:
+class DataWarehouseQuery:
     """
-    Class that store all querys
+    Class that store Datawarehouse queries
     """
     def __init__(self,
-                 conf: getConf,
                  params: ReadParams) -> None:
         self.params = params
-        self.conf = conf
 
-    def query_base_postgresql(self) -> str:
+    def get_product_orders(self) -> str:
         """
         Method return str with query
         """
         query = """
-                select cast((now() - interval '1 day')::date as varchar)
-                    as timedate,
-	            version()  as current_version;
-            """
+                select
+                    inf.*,
+                    pp.*
+                from
+                    (select 
+                        user_id_nk,
+                        case when product_id_fk = 22 then 'cars' else 'inmo' end category,
+                        count(*) insertion_fees,
+                        min(payment_date) min_payment_date,
+                        max(payment_date) max_payment_date
+                    from 
+                        ods.product_order po 
+                    where 
+                        product_id_fk in (22,23) 
+                        and status in ('confirmed', 'paid', 'sent', 'failed')
+                        and payment_date::date between '{0}' and '{1}'
+                    group by 
+                        1,2)inf
+                left join
+                    (select 
+                            lister,
+                            to_char(payment_date::date, 'YYYY-mm') month_id,
+                            sum(price)
+                        from 
+                            dm.transactions_pp_analysis tpa
+                        where 
+                            payment_date::date between '{0}' and '{1}'
+                        group by 
+                            1,2)pp on inf.user_id_nk = pp.lister
+                order by 
+                    3 desc;
+            """.format(self.params.date_from, self.params.date_to)
         return query
 
-    def query_base_athena(self) -> str:
+    def get_packs(self):
+        query = """select 
+                    email,
+                    category,
+                    p.slots,
+                    p.date_start,
+                    p.date_end,
+                    pp.*
+                from 
+                    ods.packs p
+                left join 
+                    (select 
+                        lister,
+                        to_char(payment_date::date, 'YYYY-mm') month_id,
+                        sum(price)
+                    from 
+                        dm.transactions_pp_analysis tpa
+                    where 
+                        payment_date::date between '{0}' and '{1}'
+                    group by 
+                        1,2)pp on pp.lister = p.email
+                where
+                    now() between date_start and date_end""".format(self.params.date_from, self.params.date_to)
+        return query
+
+class CreditQuery:
+    """
+    Class that store Credit db queries
+    """
+    def __init__(self,
+                 params: ReadParams) -> None:
+        self.params = params
+
+    def get_credit_total(self) -> str:
         """
         Method return str with query
         """
         query = """
-                select substr(
-                        cast((cast(now() as timestamp) - interval '1' day)
-                    as varchar), 1, 10) as timedate,
-                'Athena' as current_version
-            """
+                select 
+                    user_id ,
+                    sum(credits) credits_buyed,
+                    sum(credits-used) credits_available
+                from 
+                    credits c 
+                where
+                    expiration_date::date > '{}'
+                group by 
+                    1;
+            """.format(self.params.date_to)
         return query
 
-    def delete_base(self) -> str:
-        """
-        Method that returns events of the day
-        """
-        command = """
-                    delete from dm_analysis.db_version where 
-                    timedate::date = 
-                    '""" + self.params.get_date_from() + """'::date """
 
-        return command
+class BlocketQuery:
+    """
+    Class that store Credit db queries
+    """
+    def __init__(self,
+                 params: ReadParams) -> None:
+        self.params = params
+
+    def get_accounts(self, users) -> str:
+        """
+        Method return str with query
+        """
+        query = """
+                select 
+                    account_id, 
+                    email 
+                from 
+                    accounts a 
+                where 
+                    account_id in ({})""".format(users)
+        return query

@@ -11,7 +11,6 @@ make docker-build
 ```
 docker run -v /local-path/secrets/pulse:/app/pulse-secret \
            -v /local-path/secrets/db-secret:/app/db-secret \
-           -e APP_PULSE_SECRET=/app/pulse-secret \
            -e APP_DB_SECRET=/app/db-secret \
            containers.mpi-internal.com/yapo/yapopesos-report:[TAG]
 ```
@@ -20,8 +19,7 @@ docker run -v /local-path/secrets/pulse:/app/pulse-secret \
 
 ```
 docker run -v /local-path/secrets/pulse:/app/pulse-secret \
-           -v /local-path/secrets/db-secret:/app/db-secret \
-           -e APP_PULSE_SECRET=/app/pulse-secret \
+           -v /local-path/secrets/db-secret:/app/db-secret
            -e APP_DB_SECRET=/app/db-secret \
            containers.mpi-internal.com/yapo/yapopesos-report:[TAG] \
            -date_from=YYYY-MM-DD \

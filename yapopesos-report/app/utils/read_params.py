@@ -33,12 +33,6 @@ class ReadParams:
         """
         return self.date_to.strftime('%Y-%m-%d')
 
-    def get_current_year(self) -> str:
-        """
-        Method that get current_year attribute
-        """
-        return str(self.date_from.year)
-
     def get_current_month(self) -> str:
         """
         Method that get current_month attribute
@@ -54,19 +48,6 @@ class ReadParams:
         if self.date_from.day < 10:
             return '0' + str(self.date_from.day)
         return str(self.date_from.day)
-
-    def get_last_year(self) -> str:
-        """
-        Method that get last_year attribute
-        """
-        return str(int(self.date_from.year) - 1)
-
-    def get_last_year_week(self, delta: int) -> str:
-        """
-        Method that get last_year_week attribute
-        """
-        return str((self.\
-                    date_from + timedelta(days=delta)).strftime('%Y-%m-%d'))
 
     def get_inital_day(self, delta) -> datetime:
         tmp_date = datetime.datetime(self.date_from.year - 1, 1, 1)
@@ -123,16 +104,13 @@ class ReadParams:
         self.logger.info('Validate params.')
         current_date = datetime.datetime.now()
         if self.date_from is None:
-            temp_date = current_date + timedelta(days=-1)
-            self.date_from = temp_date
+            self.date_from = "{}-01-01".format(current_date.year)
         if self.date_to is None:
-            temp_date = current_date + timedelta(days=-1)
-            self.date_to = temp_date
+            self.date_to = current_date.strftime('%Y-%m-%d')
         if self.master is None:
             self.master = 'local'
 
         self.logger.info('Date from : %s', self.date_from)
         self.logger.info('Date to   : %s', self.date_to)
-        self.logger.info('Current year : %s', self.get_current_year())
-        self.logger.info('Last year : %s', self.get_last_year())
+        self.logger.info('Current year : %s', current_date.year)
         self.logger.info('Node : %s', self.master)
