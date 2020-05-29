@@ -103,7 +103,17 @@ class Report():
         active_packs = self.pack_data.merge(credits_df, left_on='email_', right_on='email', how='left').fillna(0)
         active_packs['credits_buyed'] = active_packs['credits_buyed'].astype(int)
         active_packs['credits_available'] = active_packs['credits_available'].astype(int)
+
+        # Deleting unused columns
+        insfee_with_pp_expense.drop(['email', 'account_id', 'user_id'], axis = 1, inplace=True) 
+        active_packs.drop(['email', 'account_id', 'user_id'], axis = 1, inplace=True) 
+
+        # Generating excel
         with pd.ExcelWriter('output.xlsx') as writer:  
-            insfee_with_pp_expense.to_excel(writer, sheet_name='insfee_with_pp_expense')
-            active_packs.to_excel(writer, sheet_name='active_packs_with_pp_expense')
+            insfee_with_pp_expense.to_excel(writer,
+                                            sheet_name='insfee_with_pp_expense',
+                                            index=False)
+            active_packs.to_excel(writer,
+                                  sheet_name='active_packs_with_pp_expense',
+                                  index=False)
         return True
