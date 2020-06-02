@@ -95,6 +95,8 @@ class ReadParams:
             self.date_to = date_str.strptime(value, '%Y-%m-%d').date()
         elif key == '-master':
             self.master = value
+        elif key == '-deliver_to':
+            self.deliver_to = value.split(',')
 
     def validate_params(self) -> None:
         """

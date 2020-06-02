@@ -1,8 +1,13 @@
+import base64
 import pandas as pd
+import os
+from datetime import datetime
 from utils.query import DataWarehouseQuery, CreditQuery, BlocketQuery
 from utils.read_params import ReadParams
 from infraestructure.psql import Database
+from infraestructure.email import Email
 
+FILENAME = "output.xlsx"
 
 class Report():
     def __init__(self, config, params: ReadParams) -> None:
@@ -108,12 +113,26 @@ class Report():
         insfee_with_pp_expense.drop(['email', 'account_id', 'user_id'], axis = 1, inplace=True) 
         active_packs.drop(['email', 'account_id', 'user_id'], axis = 1, inplace=True) 
 
-        # Generating excel
-        with pd.ExcelWriter('output.xlsx') as writer:  
+        # Generating excel file
+        with pd.ExcelWriter(FILENAME) as writer:  
             insfee_with_pp_expense.to_excel(writer,
                                             sheet_name='insfee_with_pp_expense',
                                             index=False)
             active_packs.to_excel(writer,
                                   sheet_name='active_packs_with_pp_expense',
                                   index=False)
+        # Sending email
+        data = open(FILENAME, 'rb').read()
+        encoded = base64.b64encode(data).decode('UTF-8')
+        email = Email(to=self.params.deliver_to,
+                      subject="Reporte Revenues fecha {}".format(datetime.now().strftime('%d-%m-%Y')),
+                      message="""<h3>Buen día, se adjunta lo solicitado.</h3>
+                        <h6><i>Este mensaje fue generado de forma automática, por favor no responder</i></h6>""",
+                      )
+        email.attach("reporte.xlsx", encoded, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+        email.send()
+        # Removing file
+        os.remove("output.xlsx")
         return True
+
+    
