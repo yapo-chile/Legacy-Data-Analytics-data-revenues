@@ -12,7 +12,7 @@ make docker-build
 docker run -v /local-path/secrets/pulse:/app/pulse-secret \
            -v /local-path/secrets/db-secret:/app/db-secret \
            -e APP_DB_SECRET=/app/db-secret \
-           containers.mpi-internal.com/yapo/yapopesos-report:[TAG]
+           containers.mpi-internal.com/yapo/yapesos-report:[TAG]
 ```
 
 ### Run micro services with parameters
@@ -21,7 +21,7 @@ docker run -v /local-path/secrets/pulse:/app/pulse-secret \
 docker run -v /local-path/secrets/pulse:/app/pulse-secret \
            -v /local-path/secrets/db-secret:/app/db-secret
            -e APP_DB_SECRET=/app/db-secret \
-           containers.mpi-internal.com/yapo/yapopesos-report:[TAG] \
+           containers.mpi-internal.com/yapo/yapesos-report:[TAG] \
            -date_from=YYYY-MM-DD \
            -date_to=YYYY-MM-DD
 ```

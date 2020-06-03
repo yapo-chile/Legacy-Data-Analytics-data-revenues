@@ -21,17 +21,19 @@ class AppConfig:
         name: str = INI_DB.secret(name="dbname", default=environ.var())
         user: str = INI_DB.secret(name="user", default=environ.var())
         password: str = INI_DB.secret(name="password", default=environ.var())
+
     
     @environ.config(prefix="BLOCKET")
     class BlocketConfig:
         """
         DBConfig Class representing the configuration to access the database
         """
-        host: str = INI_CREDIT.secret(name="host", default=environ.var())
-        port: int = INI_CREDIT.secret(name="port", default=environ.var())
-        name: str = INI_CREDIT.secret(name="dbname", default=environ.var())
-        user: str = INI_CREDIT.secret(name="user", default=environ.var())
-        password: str = INI_CREDIT.secret(name="password", default=environ.var())
+        host: str = INI_BLOCKET.secret(name="host", default=environ.var())
+        port: int = INI_BLOCKET.secret(name="port", default=environ.var())
+        name: str = INI_BLOCKET.secret(name="dbname", default=environ.var())
+        user: str = INI_BLOCKET.secret(name="user", default=environ.var())
+        password: str = INI_BLOCKET.secret(name="password", default=environ.var())
+
 
     @environ.config(prefix="CREDIT")
     class CreditConfig:
@@ -43,6 +45,7 @@ class AppConfig:
         name: str = INI_CREDIT.secret(name="dbname", default=environ.var())
         user: str = INI_CREDIT.secret(name="user", default=environ.var())
         password: str = INI_CREDIT.secret(name="password", default=environ.var())
+
 
     db = environ.group(DBConfig)
     credit = environ.group(CreditConfig)

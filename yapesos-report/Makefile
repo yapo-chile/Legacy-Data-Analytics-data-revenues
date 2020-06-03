@@ -27,7 +27,7 @@ run: compose-up-no-build
 
 ## Executre job with not container
 run-local:
-	python app/main.py
+	python app/main.py -deliver_to=aaron.dominguez@adevinta.com
 
 ## Publishes container
 docker-publish:

@@ -13,7 +13,7 @@ if __name__ == '__main__':
     # Basic init config
     CONFIG = getConf()
     TIME = TimeExecution()
-    LOGGER = logging.getLogger('yapopesos-report')
+    LOGGER = logging.getLogger('yapesos-report')
     DATE_FORMAT = """%(asctime)s,%(msecs)d %(levelname)-2s """
     INFO_FORMAT = """[%(filename)s:%(lineno)d] %(message)s"""
     LOG_FORMAT = DATE_FORMAT + INFO_FORMAT
