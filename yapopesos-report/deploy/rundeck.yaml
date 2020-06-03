@@ -1,14 +1,11 @@
 - defaultTab: nodes
   description: |-
-        sudo docker run -v /home/bnbiuser/secrets/pulse_auth:/app/pulse-secret \
-                        -v /home/bnbiuser/secrets/dw_db:/app/db-secret \
-                        -e APP_PULSE_SECRET=/app/pulse-secret \
-                        -e APP_DB_SECRET=/app/db-secret \
-                        containers.mpi-internal.com/yapo/data-base-pipeline:latest
+      Yapesos report that takes data from \
+       datawarehouse, blocketdb and credits-db
   executionEnabled: true
   group: DOCKER/PULSE
   loglevel: DEBUG
-  name: Pulse - Project Name Template
+  name: Report - Yapesos revenues
   nodeFilterEditable: false
   nodefilters:
     dispatch:
@@ -23,34 +20,31 @@
     onfailure:
       email:
         recipients: data_team@adevinta.com
-        subject: ${job.execid} ${execution.status} ${job.name}
-    onstart:
+        subject: ${job.execid} ${execution.status} ${job.name} - Fallo definitivo
+    onretryablefailure:
       email:
         recipients: data_team@adevinta.com
-        subject: ${job.execid} ${execution.status} ${job.name}
-    onsuccess:
-      email:
-        recipients: data_team@adevinta.com
-        subject: ${job.execid} ${execution.status} ${job.name}
+        subject: ${job.execid} ${execution.status} ${job.name} - Fallo por reintento
   notifyAvgDurationThreshold: null
+  scheduleEnabled: true
   schedule:
     month: '*'
     time:
-      hour: '03'
+      hour: '09'
       minute: '0'
       seconds: '0'
     weekday:
-      day: '*'
+      day: FRI
     year: '*'
-  scheduleEnabled: true
+  retry:
+    retry: 3
+    delay: 20m
   sequence:
     commands:
     - script: |-
-        sudo docker run -v /home/bnbiuser/secrets/pulse_auth:/app/pulse-secret \
-                        -v /home/bnbiuser/secrets/dw_db:/app/db-secret \
-                        -e APP_PULSE_SECRET=/app/pulse-secret \
+        sudo docker run -v /home/bnbiuser/secrets/dw_db:/app/db-secret \
                         -e APP_DB_SECRET=/app/db-secret \
-                        containers.mpi-internal.com/yapo/data-base-pipeline:latest
+                        containers.mpi-internal.com/yapo/yapopesos-report:latest
     keepgoing: false
     strategy: node-first
   timeZone: America/Santiago

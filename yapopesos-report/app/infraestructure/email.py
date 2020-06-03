@@ -2,7 +2,7 @@ import requests
 
 
 class Email():
-    def __init__(self, to, subject, message, name="Reporte Revenues") -> None:
+    def __init__(self, to, subject, message, name="Data") -> None:
         self._to = to
         self._name = name
         self._subject = subject
@@ -27,6 +27,6 @@ class Email():
             body["filename"] = self._filename
             body["binary_file"] = self._binary
             body["file_content_type"] = self._file_type
-        #r = requests.post("http://mailer.pro.yapo.cl/api/v1/postfix",
-        #                  headers=self.headers(),
-        #                  data=body)
+        r = requests.post("http://mailer.pro.yapo.cl/api/v1/postfix",
+                          headers=self.headers(),
+                          data=body)
