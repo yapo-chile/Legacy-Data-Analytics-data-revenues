@@ -46,7 +46,7 @@
                         -e APP_DB_SECRET=/app/db-secret \
                         containers.mpi-internal.com/yapo/yapesos-report:latest \
                         -deliver_to="Carlos Fuentes <carlos.fuentes@adevinta.com>,
-                        Claudia Castro <claudia.castro@adevinta.com>"
+                        Claudia Castro <claudia.castro@adevinta.com>, Data <data_team@adevinta.com>"
     keepgoing: false
     strategy: node-first
   timeZone: America/Santiago
