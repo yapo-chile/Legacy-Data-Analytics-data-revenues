@@ -125,7 +125,7 @@ class Report():
         data = open(FILENAME, 'rb').read()
         encoded = base64.b64encode(data).decode('UTF-8')
         email = Email(to=self.params.deliver_to,
-                      subject="Reporte Revenues Yapesos fecha {}".format(datetime.now().strftime('%d-%m-%Y')),
+                      subject="Inserting Fee Sellers with Yapesos info",
                       message="""<h3>Buen día, se adjunta lo solicitado.</h3>
                         <h6><i>Este mensaje fue generado de forma automática, por favor no responder</i></h6>""",
                       )

@@ -26,8 +26,10 @@ start: compose-up
 run: compose-up-no-build
 
 ## Executre job with not container
+### deliver to would be sending the generated report to that email if
+### executed locally
 run-local:
-	python app/main.py -deliver_to=aaron.dominguez@adevinta.com
+	python app/main.py -deliver_to=data_team@adevinta.com
 
 ## Publishes container
 docker-publish:
