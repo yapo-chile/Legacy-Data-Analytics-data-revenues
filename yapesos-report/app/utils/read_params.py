@@ -8,6 +8,7 @@ class ReadParams:
     """
     Class that allow read params by sys.
     """
+
     def __init__(self, str_parse_params) -> None:
         self.str_parse_params = str_parse_params
         self.date_from = None
@@ -53,7 +54,6 @@ class ReadParams:
         tmp_date = datetime.datetime(self.date_from.year - 1, 1, 1)
         return str((tmp_date + timedelta(days=delta)).strftime('%Y-%m-%d'))
 
-
     def get_master(self) -> str:
         """
         Method that get master attribute
@@ -83,6 +83,7 @@ class ReadParams:
             self.mapping_params(param[0], param[1])
 
     def mapping_params(self, key: str, value: str) -> None:
+        # pylint: disable-all
         """
         Method [ mapping_params ] is method that join attribute with key.
         Param  [ key ] is the key that be compare with

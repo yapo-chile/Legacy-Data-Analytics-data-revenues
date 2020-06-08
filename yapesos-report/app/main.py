@@ -2,7 +2,6 @@
 # utf-8
 import sys
 import logging
-import pandas as pd
 from infraestructure.conf import getConf
 from utils.read_params import ReadParams
 from utils.time_execution import TimeExecution

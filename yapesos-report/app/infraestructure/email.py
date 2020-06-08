@@ -1,3 +1,4 @@
+import logging
 import requests
 
 
@@ -7,8 +8,10 @@ class Email():
         self._name = name
         self._subject = subject
         self._message = message
-    
+        self.log = logging.getLogger('email')
+
     def attach(self, filename, binary, file_type):
+        # pylint: disable-all
         self._filename = filename
         self._binary = binary
         self._file_type = file_type
@@ -30,3 +33,4 @@ class Email():
         r = requests.post("http://mailer.pro.yapo.cl/api/v1/postfix",
                           headers=self.headers(),
                           data=body)
+        self.log.info("Email response: {}".format(r.text))

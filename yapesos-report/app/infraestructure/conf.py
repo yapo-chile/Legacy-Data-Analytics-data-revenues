@@ -22,7 +22,7 @@ class AppConfig:
         user: str = INI_DB.secret(name="user", default=environ.var())
         password: str = INI_DB.secret(name="password", default=environ.var())
 
-    
+
     @environ.config(prefix="BLOCKET")
     class BlocketConfig:
         """
@@ -32,7 +32,8 @@ class AppConfig:
         port: int = INI_BLOCKET.secret(name="port", default=environ.var())
         name: str = INI_BLOCKET.secret(name="dbname", default=environ.var())
         user: str = INI_BLOCKET.secret(name="user", default=environ.var())
-        password: str = INI_BLOCKET.secret(name="password", default=environ.var())
+        password: str = INI_BLOCKET.secret(name="password",
+                                           default=environ.var())
 
 
     @environ.config(prefix="CREDIT")
@@ -44,12 +45,14 @@ class AppConfig:
         port: int = INI_CREDIT.secret(name="port", default=environ.var())
         name: str = INI_CREDIT.secret(name="dbname", default=environ.var())
         user: str = INI_CREDIT.secret(name="user", default=environ.var())
-        password: str = INI_CREDIT.secret(name="password", default=environ.var())
+        password: str = INI_CREDIT.secret(name="password",
+                                          default=environ.var())
 
 
     db = environ.group(DBConfig)
     credit = environ.group(CreditConfig)
     blocket = environ.group(BlocketConfig)
+
 
 def getConf():
     return environ.to_config(AppConfig)

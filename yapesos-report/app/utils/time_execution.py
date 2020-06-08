@@ -6,6 +6,7 @@ class TimeExecution:
     """
     Class that allows to measure execution time.
     """
+
     def __init__(self) -> None:
         self.start = datetime.datetime.now()
         self.end = datetime.datetime.now()
