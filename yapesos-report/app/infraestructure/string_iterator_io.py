@@ -5,6 +5,7 @@ class StringIteratorIO:
     """
     Class that process large string values.
     """
+
     def __init__(self, iter_str: Iterator[str]):
         self._iter = iter_str
         self._buff = ''

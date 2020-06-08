@@ -8,6 +8,7 @@ class Database:
     """
     Class that allow do operations with postgresql database.
     """
+
     def __init__(self, conf) -> None:
         self.log = logging.getLogger('psql')
         date_format = """%(asctime)s,%(msecs)d %(levelname)-2s """
@@ -32,7 +33,10 @@ class Database:
         """
         Method that returns database connection.
         """
-        self.log.info('get_connection DB %s/%s', self.conf.host, self.conf.name)
+        self.log.info(
+            'get_connection DB %s/%s',
+            self.conf.host,
+            self.conf.name)
         self.connection = psycopg2.connect(**self.database_conf())
         self.connection.set_client_encoding('UTF-8')
 
