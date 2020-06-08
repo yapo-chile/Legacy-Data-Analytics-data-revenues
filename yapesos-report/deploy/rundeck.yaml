@@ -43,7 +43,11 @@
     commands:
     - script: |-
         sudo docker run -v /home/bnbiuser/secrets/dw_db:/app/db-secret \
+                        -v /home/bnbiuser/secrets/blocket_db:/app/db-blocket \
+                        -v /home/bnbiuser/secrets/credits-db:/app/db-credits \
                         -e APP_DB_SECRET=/app/db-secret \
+                        -e APP_BLOCKET_SECRET=/app/db-blocket \
+                        -e APP_CREDIT_SECRET=/app/db-credits \
                         containers.mpi-internal.com/yapo/yapesos-report:latest \
                         -deliver_to="Carlos Fuentes <carlos.fuentes@adevinta.com>,
                         Claudia Castro <claudia.castro@adevinta.com>, Data <data_team@adevinta.com>"

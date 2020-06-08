@@ -22,5 +22,5 @@ if __name__ == '__main__':
     PARAMS = ReadParams(sys.argv)
     # Calling generate report usecase
     Report(CONFIG, PARAMS).generate()
-
+    # End process
     LOGGER.info('Process ended successfully.')
