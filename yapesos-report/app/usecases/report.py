@@ -139,8 +139,8 @@ class Report():
         encoded = base64.b64encode(data).decode('UTF-8')
         email = Email(to=self.params.deliver_to,
                       subject="Inserting Fee Sellers with Yapesos info",
-                      message="""<h3>Buen día, se adjunta lo solicitado.</h3>
-                        <h6><i>Este mensaje fue generado de forma automática,
+                      message="""<h3>Buen dia, se adjunta lo solicitado.</h3>
+                        <h6><i>Este mensaje fue generado de forma automatica,
                         por favor no responder</i></h6>""",
                       )
         email.attach(
