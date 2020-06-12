@@ -14,7 +14,8 @@ class AppConfig:
     @environ.config(prefix="DB")
     class DBConfig:
         """
-        DBConfig Class representing the configuration to access the database
+        DBConfig Class representing the configuration to access the
+        datawarehouse database
         """
         host: str = INI_DB.secret(name="host", default=environ.var())
         port: int = INI_DB.secret(name="port", default=environ.var())
@@ -26,7 +27,8 @@ class AppConfig:
     @environ.config(prefix="BLOCKET")
     class BlocketConfig:
         """
-        DBConfig Class representing the configuration to access the database
+        DBConfig Class representing the configuration to access the
+        blocket database
         """
         host: str = INI_BLOCKET.secret(name="host", default=environ.var())
         port: int = INI_BLOCKET.secret(name="port", default=environ.var())
@@ -39,7 +41,8 @@ class AppConfig:
     @environ.config(prefix="CREDIT")
     class CreditConfig:
         """
-        DBConfig Class representing the configuration to access the database
+        DBConfig Class representing the configuration to access the
+        credits database
         """
         host: str = INI_CREDIT.secret(name="host", default=environ.var())
         port: int = INI_CREDIT.secret(name="port", default=environ.var())
