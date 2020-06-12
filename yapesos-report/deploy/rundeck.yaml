@@ -49,8 +49,7 @@
                         -e APP_BLOCKET_SECRET=/app/db-blocket \
                         -e APP_CREDIT_SECRET=/app/db-credits \
                         containers.mpi-internal.com/yapo/yapesos-report:latest \
-                        -deliver_to="Carlos Fuentes <carlos.fuentes@adevinta.com>,
-                        Claudia Castro <claudia.castro@adevinta.com>, Data <data_team@adevinta.com>"
+                        -deliver_to="carlos.fuentes@adevinta.com,claudia.castro@adevinta.com,data_team@adevinta.com"
     keepgoing: false
     strategy: node-first
   timeZone: America/Santiago
