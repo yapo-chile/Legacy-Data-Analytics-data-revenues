@@ -1,3 +1,4 @@
+import json
 import logging
 import requests
 
@@ -25,12 +26,13 @@ class Email():
         body = {"to": self._to,
                 "subject": self._subject,
                 "html_message": self._message,
-                "name": self._name}
+                "name": [self._name]}
         if self.to_attach:
             body["filename"] = self._filename
             body["binary_file"] = self._binary
             body["file_content_type"] = self._file_type
+        
         r = requests.post("http://mailer.pro.yapo.cl/api/v1/postfix",
                           headers=self.headers(),
-                          data=body)
+                          data=json.dumps(body))
         self.log.info("Email response: {}".format(r.text))
