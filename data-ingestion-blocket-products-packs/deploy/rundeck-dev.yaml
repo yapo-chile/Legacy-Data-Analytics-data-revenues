@@ -1,0 +1,45 @@
+- defaultTab: nodes
+  description: |-
+        This process run pipeline in data-revenue/data-ingestion-blocket-products-packs
+        sudo docker run --net=host --rm -v /home/bnbiuser/secrets/blocket_db:/app/blocket-secret \
+                        -v /home/bnbiuser/secrets/dw_db:/app/db-secret \
+                        -e APP_BLOCKET_SECRET=/app/blocket-secret \
+                        -e APP_DW_SECRET=/app/db-secret \
+                        containers.mpi-internal.com/yapo/etl-job-blocket:feat_etl_job_blocket_crontab
+  executionEnabled: true
+  group: REVENUE
+  loglevel: DEBUG
+  name: RAW - Data ingestion blocket - Packs & Products
+  nodeFilterEditable: false
+  nodefilters:
+    dispatch:
+      excludePrecedence: true
+      keepgoing: false
+      rankOrder: ascending
+      successOnEmptyNodeFilter: false
+      threadcount: '1'
+    filter: 'name: dockerhost'
+  nodesSelectedByDefault: true
+  notifyAvgDurationThreshold: null
+  schedule:
+    month: '*'
+    time:
+      hour: '00'
+      minute: '10'
+      seconds: '0'
+    weekday:
+      day: '*'
+    year: '*'
+  scheduleEnabled: true
+  sequence:
+    commands:
+    - script: |-
+        sudo docker pull containers.mpi-internal.com/yapo/etl-job-blocket:feat_etl_job_blocket_crontab
+        sudo docker run --net=host --rm -v /home/bnbiuser/secrets/blocket_db:/app/blocket-secret \
+                        -v /home/bnbiuser/secrets/dw_db:/app/db-secret \
+                        -e APP_BLOCKET_SECRET=/app/blocket-secret \
+                        -e APP_DW_SECRET=/app/db-secret \
+                        containers.mpi-internal.com/yapo/etl-job-blocket:feat_etl_job_blocket_crontab
+    keepgoing: false
+    strategy: node-first
+  timeZone: America/Santiago
