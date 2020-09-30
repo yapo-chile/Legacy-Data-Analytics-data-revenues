@@ -1,0 +1,36 @@
+- defaultTab: nodes
+  description: |-
+    Retrieves stored purchases from blocketDb and store them in dwh \
+      sudo docker run --rm -v /home/bnbiuser/secrets/blocket_db:/app/db-blocket \
+                      -v /home/bnbiuser/secrets/dw_db:/app/db-secret \
+                      -e APP_BLOCKET_SECRET=/app/db-blocket \
+                      -e APP_DB_SECRET=/app/db-secret \
+                         containers.mpi-internal.com/yapo/store-purchase:feat_store-purchases
+  executionEnabled: true
+  group: DOCKER/REVENUES
+  loglevel: DEBUG
+  name: Revenues - Store Purchases
+  nodeFilterEditable: false
+  nodefilters:
+    dispatch:
+      excludePrecedence: true
+      keepgoing: false
+      rankOrder: ascending
+      successOnEmptyNodeFilter: false
+      threadcount: '1'
+    filter: 'name: dockerhost'
+  nodesSelectedByDefault: true
+  notifyAvgDurationThreshold: null
+  scheduleEnabled: false
+  sequence:
+    commands:
+    - script: |-
+        sudo docker pull containers.mpi-internal.com/yapo/store-purchase:feat_store-purchases
+        sudo docker run --rm -v /home/bnbiuser/secrets/blocket_db:/app/db-blocket \
+                            -v /home/bnbiuser/secrets/dw_db:/app/db-secret \
+                            -e APP_BLOCKET_SECRET=/app/db-blocket \
+                            -e APP_DB_SECRET=/app/db-secret \
+                              containers.mpi-internal.com/yapo/store-purchase:feat_store-purchases
+    keepgoing: false
+    strategy: node-first
+  timeZone: America/Santiago
