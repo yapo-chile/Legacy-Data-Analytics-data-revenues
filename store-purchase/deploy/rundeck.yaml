@@ -1,5 +1,6 @@
 - defaultTab: nodes
   description: |-
+        Github: https://github.mpi-internal.com/Yapo/data-revenues \
         Retrieves stored purchases from blocketDb and store them in dwh \
         sudo docker run --rm -v /home/bnbiuser/secrets/blocket_db:/app/db-blocket \
                         -v /home/bnbiuser/secrets/dw_db:/app/db-secret \
