@@ -12,9 +12,10 @@ Its data is extracted from blocket and delivered to datawarehouse
 |   Field           | Description                                                                |
 |-------------------|----------------------------------------------------------------------------|
 | Input Source      | Blocket Db                                                                 |
-| Output Source     | ods.store_purchase                                                        |
+| Output Source     | ods.store_purchase                                                         |
 | Schedule          | 02:00 everyday                                                             |
 | Rundeck Access    | Specify rundeck environment (test/data jobs) and rundeck ETL name          |
+| Github Repository | https://github.mpi-internal.com/Yapo/data-revenues                         |
 | Associated Report | Specify name and URL of tableau report (if applies)                        |
 
 

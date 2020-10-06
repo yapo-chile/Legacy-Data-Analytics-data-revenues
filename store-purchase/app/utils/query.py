@@ -47,7 +47,7 @@ class StorePurchaseQuery:
                 b.product_id in (4,5,6,7)
                 and state = 'accepted'
                 and a.status = 'confirmed'
-                and a.receipt between '{DATE_FROM}' and '{DATE_TO}';
+                and a.receipt > '{DATE_FROM}' and a.receipt < '{DATE_TO}';
             """.format(DATE_FROM=self.params.get_date_from(),
                        DATE_TO=self.params.get_date_to())
         return query

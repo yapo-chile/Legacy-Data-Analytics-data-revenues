@@ -36,13 +36,12 @@ class StorePurchases(StorePurchaseQuery):
         self.blocket_data_store_purchases = self.config.blocket
         self.cleaned_data = self.blocket_data_store_purchases
         self.cleaned_data["product_id_fk"] = 0
-        for column in ["store_id_nk",
-                       "user_id",
-                       "region",
-                       "total_price",
-                       "product_id_fk"]:
-            self.cleaned_data[column] = self.cleaned_data[column].astype('Int64')
-
+        astypes = {"store_id_nk": "Int64",
+                   "user_id": "Int64",
+                   "region": "Int64",
+                   "total_price": "Int64",
+                   "product_id_fk": "Int64"}
+        self.cleaned_data = self.cleaned_data.astype(astypes)
         self.logger.info("First records as evidence")
         self.logger.info(self.cleaned_data.head())
         self.insert_to_table()
