@@ -116,10 +116,6 @@ class ReadParams:
             self.date_to = date_str.strptime(value, '%Y-%m-%d').date()
         elif key == '-master':
             self.master = value
-        elif key == '-email_to':
-            self.email_to.append(value)
-        elif key == '-email_from':
-            self.email_from = value
 
     def validate_params(self) -> None:
         """
@@ -130,21 +126,20 @@ class ReadParams:
         current_date = datetime.datetime.now()
         if self.date_from is None:
             temp_date = current_date + timedelta(days=-1)
-            self.date_from = temp_date
+            self.date_from = temp_date.replace(hour=0,
+                                               minute=0,
+                                               second=0,
+                                               microsecond=0)
         if self.date_to is None:
             temp_date = current_date + timedelta(days=-1)
-            self.date_to = temp_date
+            self.date_to = temp_date.replace(hour=23,
+                                             minute=59,
+                                             second=59,
+                                             microsecond=999999)
         if self.master is None:
             self.master = 'local'
-        if self.email_from is None:
-            self.email_from = "noreply@yapo.cl"
-        if self.email_to == []:
-            self.email_to = ['data_team@adevinta.com']
-
         self.logger.info('Date from : %s', self.date_from)
         self.logger.info('Date to   : %s', self.date_to)
         self.logger.info('Current year : %s', self.get_current_year())
         self.logger.info('Last year : %s', self.get_last_year())
         self.logger.info('Node : %s', self.master)
-        self.logger.info('Email from : %s', self.email_from)
-        self.logger.info('Email to : {}'.format(", ".join(self.email_to)))
