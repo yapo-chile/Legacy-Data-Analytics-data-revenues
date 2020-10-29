@@ -1,4 +1,4 @@
-from infraestructure.conf import getConf
+ºfrom infraestructure.conf import getConf
 from utils.read_params import ReadParams
 
 
@@ -107,26 +107,24 @@ class Query:
         Method return str with query
         """
         query = """
-        SELECT  po.product_id_nk,
-                product_order_nk, 
-                creation_date,
+        SELECT  product_order_nk,
+                po.creation_date,
                 payment_date,
-                payment_id,
-                price, 
-                status, 
-                ad_id,
-                user_id_nk,
-                now() as insert_date, 
-                payment_platform, 
-                (case when p.product_id_nk is null then 0 
+                po.price,
+                status,
+                now() as insert_date,
+                (case when p.product_id_nk is null then 0
                     else p.product_id_pk end) as product_id_fk,
+                coalesce(ad_id_pk, 0) as ad_id_fk,
+                user_id_nk,
+                payment_platform,
                 doc_num,
                 purchase_detail_id_nk,
                 payment_method,
                 doc_type
         FROM stg.product_order po
-        left join ods.product p
-        on p.product_id_nk = po.product_id_nk
-
+                left join ods.product p on p.product_id_nk = po.product_id_nk
+                left join ods.ad ad on ad.ad_id_nk = po.ad_id
+        order by price;
         """
         return query
