@@ -14,7 +14,7 @@ docker-build: build
 
 ## Compile and start the service using docker
 compose-up: docker-build
-	docker-compose up -d
+	docker-compose up --always-recreate-deps
 
 ## compose up and no build
 compose-up-no-build:

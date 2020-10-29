@@ -7,8 +7,8 @@ services:
     expose:
       - "5000"
     environment:
-      APP_PULSE_SECRET: /app/pulse-secret
       APP_DB_SECRET: /app/db-secret
+      APP_DW_SECRET: /app/dw-secret
     volumes:
-      - /keys/bnbiuser:/app/db-secret
-      - /keys/zendesk_auth:/app/pulse-secret
+      - ~/Projects/secrets/blocket-secret:/app/db-secret
+      - ~/Projects/secrets/db-secret-dev:/app/dw-secret

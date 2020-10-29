@@ -4,8 +4,7 @@ import logging
 from infraestructure.conf import getConf
 from utils.read_params import ReadParams
 from utils.time_execution import TimeExecution
-from usecases.process import Process
-
+from usecases.product_order import ProductOrder
 
 if __name__ == '__main__':
     CONFIG = getConf()
@@ -18,6 +17,6 @@ if __name__ == '__main__':
     PARAMS = ReadParams(sys.argv)
     TIME.get_time()
     # Calling main process
-    Process(CONFIG, PARAMS).generate()
+    ProductOrder(CONFIG, PARAMS).generate()
     # End process
     LOGGER.info('Process ended successfully.')

@@ -1,6 +1,5 @@
 # pylint: disable=no-member
 # utf-8
-from infraestructure.athena import Athena
 from infraestructure.psql import Database
 from utils.query import Query
 from utils.read_params import ReadParams
@@ -22,7 +21,7 @@ class ProductOrder():
         data_dwh = blocket.select_to_dict(
             Query(config, self.params).query_get_product_order_blocket())
         blocket.close_connection()
-        self.__data_product_order_blocket= data_dwh
+        self.__data_product_order_blocket = data_dwh
 
     # Write data to data warehouse
     def save_product_order_stg(self) -> None:

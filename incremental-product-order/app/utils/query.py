@@ -1,6 +1,5 @@
-ºfrom infraestructure.conf import getConf
+from infraestructure.conf import getConf
 from utils.read_params import ReadParams
-
 
 class Query:
     """
@@ -23,7 +22,7 @@ class Query:
 
     def query_get_product_order_blocket(self) -> str:
         """
-        Method return str with query 
+        Method return str with query
         """
         query = """
         select  ad_id, 
@@ -83,12 +82,10 @@ class Query:
         inner join	blocket_{current_year}.payment_groups as payg on purd.payment_group_id = payg.payment_group_id
         where   pur.receipt::date between '{date_from}' and '{date_to}'
         """.format(current_year=self.params.get_current_year(),
-                    last_year=self.params.get_last_year(),
-                    date_from=self.params.get_date_from(),
-                    date_to=self.params.get_date_to())
+                   last_year=self.params.get_last_year(),
+                   date_from=self.params.get_date_from(),
+                   date_to=self.params.get_date_to())
         return query
-
-    
 
     def query_delete_product_order_ods(self) -> str:
         """
@@ -98,8 +95,7 @@ class Query:
         delete from ods.product_order
         where creation_date between '{date_from}' and '{date_to}';            
         """.format(date_from=self.params.get_date_from(),
-                    date_to=self.params.get_date_to())
-
+                   date_to=self.params.get_date_to())
         return command
 
     def query_get_product_order_stg(self) -> str:
