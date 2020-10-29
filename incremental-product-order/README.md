@@ -4,14 +4,14 @@
 
 ## Description
 
-Process product order its a step of incremental data process that get data of puchases (and details) from blocket db and leave datawarehouse stg schema in a first step. Then, get data ingested in stg joining with ods.product and ods.ad and generate table ods.product_order final table
+Process "product order" its a step of incremental data process that get data of puchases (and details) from blocket db and leave datawarehouse stg schema in a first step. Then, get data ingested in stg joining with ods.product and ods.ad and generate table ods.product_order final table
 
 ## Pipeline Implementation Details
 
 |   Field           | Description                                                                |
 |-------------------|----------------------------------------------------------------------------|
-| Input Source      | Blocket: purchase_detail, purchase, payment_groups from schema public, blocket_2020 & blocket_2019|
-| Output Source     | Datawarehouse: ods.product_order & stg.product_order                  |
+| Input Source      | Blocket: purchase_detail, purchase, payment_groups from schema public, blocket_2020 & blocket_2019 DW: stg.product_order, ods.product and ods.ad|
+| Output Source     | Datawarehouse: stg.product_order and ods.product_order                  |
 | Schedule          | --:--                                                                      |
 | Rundeck Access    | Data_jobs          |
 | Associated Report | N/A                        |
