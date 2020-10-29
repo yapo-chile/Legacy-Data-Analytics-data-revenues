@@ -4,17 +4,17 @@
 
 ## Description
 
-Introduce here information about the purpose of this ETL, what kind of information it extracts and from where (dwh, pulse, blocket DB, service DB, specifics files, etc) and also specify other important tecnical details such as: execution preconditions, considerations about execution schedule.
+Process product order its a step of incremental data process that get data of puchases (and details) from blocket db and leave datawarehouse stg schema in a first step. Then, get data ingested in stg joining with ods.product and ods.ad and generate table ods.product_order final table
 
 ## Pipeline Implementation Details
 
 |   Field           | Description                                                                |
 |-------------------|----------------------------------------------------------------------------|
-| Input Source      | Specify type of source and/or table names                                  |
-| Output Source     | Specify type of source and/or table names                                  |
-| Schedule          | hh:mm                                                                      |
-| Rundeck Access    | Specify rundeck environment (test/data jobs) and rundeck ETL name          |
-| Associated Report | Specify name and URL of tableau report (if applies)                        |
+| Input Source      | Blocket: purchase_detail, purchase, payment_groups from schema public, blocket_2020 & blocket_2019|
+| Output Source     | Datawarehouse: ods.product_order & stg.product_order                  |
+| Schedule          | --:--                                                                      |
+| Rundeck Access    | Data_jobs          |
+| Associated Report | N/A                        |
 
 
 ### Build

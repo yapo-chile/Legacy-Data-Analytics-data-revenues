@@ -2,19 +2,15 @@
   description: |-
         <Add specific URL or path of the pipeline in github>
         sudo docker run --rm --net=host \
-                        -v /home/bnbiuser/secrets/pulse_auth:/app/pulse-secret \
-                        -v /home/bnbiuser/secrets/dw_db:/app/db-secret \
-                        -v /home/bnbiuser/secrets/smtp:/app/smtp-secret \
-                        -e APP_PULSE_SECRET=/app/pulse-secret \
+                        -v /home/bnbiuser/secrets/blocket_db:/app/db-secret \
+                        -v /home/bnbiuser/secrets/dw_db:/app/dw-secret \
                         -e APP_DB_SECRET=/app/db-secret \
-                        -e APP_SMTP_SECRET=/app/smtp-secret \
-                        containers.mpi-internal.com/yapo/incremental-product-order:[git-branch] \
-                        -email_from="noreply@yapo.cl" \
-                        -email_to="data_team@adevinta.com"
+                        -e APP_DW_SECRET=/app/dw-secret \
+                        containers.mpi-internal.com/yapo/incremental-product-order:[git-branch]
   executionEnabled: true
-  group: DOCKER/<FOLDER RUNDECK LOCATION>
+  group: DOCKER/REVENUES
   loglevel: DEBUG
-  name: <FOLDER RUNDECK LOCATION> - Project Name Template
+  name: RAW - Data ingestion blocket - Products Order
   nodeFilterEditable: false
   nodefilters:
     dispatch:
@@ -32,15 +28,11 @@
     - script: |-
         sudo docker pull containers.mpi-internal.com/yapo/incremental-product-order:[git-branch]
         sudo docker run --rm --net=host \
-                        -v /home/bnbiuser/secrets/pulse_auth:/app/pulse-secret \
-                        -v /home/bnbiuser/secrets/dw_db:/app/db-secret \
-                        -v /home/bnbiuser/secrets/smtp:/app/smtp-secret \
-                        -e APP_PULSE_SECRET=/app/pulse-secret \
+                        -v /home/bnbiuser/secrets/blocket_db:/app/db-secret \
+                        -v /home/bnbiuser/secrets/dw_db:/app/dw-secret \
                         -e APP_DB_SECRET=/app/db-secret \
-                        -e APP_SMTP_SECRET=/app/smtp-secret \
-                        containers.mpi-internal.com/yapo/incremental-product-order:[git-branch] \
-                        -email_from="noreply@yapo.cl" \
-                        -email_to="data_team@adevinta.com"
+                        -e APP_DW_SECRET=/app/dw-secret \
+                        containers.mpi-internal.com/yapo/incremental-product-order:[git-branch]
     keepgoing: false
     strategy: node-first
   timeZone: America/Santiago
