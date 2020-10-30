@@ -1,6 +1,6 @@
 - defaultTab: nodes
   description: |-
-        <Add specific URL or path of the pipeline in github>
+        Path: https://github.mpi-internal.com/Yapo/data-revenues/tree/master/incremental-product-order
         sudo docker run --rm --net=host \
                     -v /home/bnbiuser/secrets/blocket_db:/app/db-secret \
                     -v /home/bnbiuser/secrets/dw_db:/app/dw-secret \
