@@ -21,6 +21,16 @@ class ProductOrder():
         data_dwh = blocket.select_to_dict(
             Query(config, self.params).query_get_product_order_blocket())
         blocket.close_connection()
+        data_dwh = data_dwh.astype(
+            {
+                'ad_id': 'Int64',
+                'payment_id': 'Int64',
+                'product_order_nk': 'Int64',
+                'price': 'Int64',
+                'doc_num': 'Int64',
+                'purchase_detail_id_nk': 'Int64'
+            }
+        )
         self.__data_product_order_blocket = data_dwh
 
     # Write data to data warehouse
