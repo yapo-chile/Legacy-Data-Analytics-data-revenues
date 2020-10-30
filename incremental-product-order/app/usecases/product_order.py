@@ -53,6 +53,15 @@ class ProductOrder():
         data_dwh = dw.select_to_dict(
             Query(config, self.params).query_get_product_order_stg())
         dw.close_connection()
+        data_dwh = data_dwh.astype(
+            {
+                'product_id_fk': 'Int64',
+                'price': 'Int64',
+                'doc_num': 'Int64',
+                'ad_id_fk': 'Int64',
+                'purchase_detail_id_nk': 'Int64'
+            }
+        )
         self.__data_product_order_stg = data_dwh
 
     def save_product_order_ods(self) -> None:
