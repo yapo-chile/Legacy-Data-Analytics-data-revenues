@@ -13,7 +13,7 @@ class ProductOrder():
 
     @property
     def data_product_order_blocket(self):
-        return self.__data_dwh
+        return self.__data_product_order_blocket
 
     @data_product_order_blocket.setter
     def data_product_order_blocket(self, config):
@@ -33,7 +33,7 @@ class ProductOrder():
 
     @property
     def data_product_order_stg(self):
-        return self.__data_dwh
+        return self.__data_product_order_stg
 
     @data_product_order_stg.setter
     def data_product_order_stg(self, config):
