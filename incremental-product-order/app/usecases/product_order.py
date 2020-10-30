@@ -28,7 +28,9 @@ class ProductOrder():
         db = Database(conf=self.config.db)
         db.execute_command(
             Query(self.config, self.params).query_truncate_product_order_stg())
-        db.insert_copy(self.data_product_order_blocket)
+        db.insert_copy(schema='stg',
+                       table='product_order',
+                       df=self.data_product_order_blocket)
         db.close_connection()
 
     @property
@@ -47,7 +49,9 @@ class ProductOrder():
         db = Database(conf=self.config.db)
         db.execute_command(
             Query(self.config, self.params).query_delete_product_order_ods())
-        db.insert_copy(self.data_product_order_stg)
+        db.insert_copy(schema='ods',
+                       table='product_order',
+                       df=self.data_product_order_stg)
         db.close_connection()
 
     def generate(self):
