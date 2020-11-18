@@ -93,7 +93,7 @@ class Query:
         """
         command = """
         delete from ods.product_order
-        where creation_date between '{date_from}' and '{date_to}';            
+        where creation_date::date between '{date_from}' and '{date_to}';            
         """.format(date_from=self.params.get_date_from(),
                    date_to=self.params.get_date_to())
         return command
