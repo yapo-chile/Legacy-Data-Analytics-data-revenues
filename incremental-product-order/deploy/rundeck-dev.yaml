@@ -8,9 +8,9 @@
                         -e APP_DW_SECRET=/app/dw-secret \
                         containers.mpi-internal.com/yapo/incremental-product-order:feat_incremental-product-order
   executionEnabled: true
-  group: DOCKER/REVENUES
+  group: CORE
   loglevel: DEBUG
-  name: RAW - Data ingestion blocket - Products Order
+  name: Core - Incremental Products Order
   nodeFilterEditable: false
   nodefilters:
     dispatch:

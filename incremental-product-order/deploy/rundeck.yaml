@@ -8,9 +8,9 @@
                     -e APP_DW_SECRET=/app/dw-secret \
                     containers.mpi-internal.com/yapo/incremental-product-order:latest
   executionEnabled: true
-  group: DOCKER/REVENUES
+  group: CORE
   loglevel: DEBUG
-  name: RAW - Data ingestion blocket - Products Order
+  name: Core - Incremental Products Order
   nodeFilterEditable: false
   nodefilters:
     dispatch:
@@ -33,15 +33,6 @@
           webhook_token: T017F9KHA1Y/B01BL7C1CSY/Ai9NzdCrBUA5Ru5sa8JHYrjR
         type: SlackNotification
   notifyAvgDurationThreshold: null
-  schedule:
-    month: '*'
-    time:
-      hour: '03'
-      minute: '0'
-      seconds: '0'
-    weekday:
-      day: '*'
-    year: '*'
   scheduleEnabled: false
   sequence:
     commands:
