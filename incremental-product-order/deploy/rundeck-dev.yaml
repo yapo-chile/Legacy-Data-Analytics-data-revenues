@@ -1,0 +1,38 @@
+- defaultTab: nodes
+  description: |-
+        Path: https://github.mpi-internal.com/Yapo/data-revenues/tree/master/incremental-product-order
+        sudo docker run --rm --net=host \
+                        -v /home/bnbiuser/secrets/blocket_db:/app/db-secret \
+                        -v /home/bnbiuser/secrets/dw_db:/app/dw-secret \
+                        -e APP_DB_SECRET=/app/db-secret \
+                        -e APP_DW_SECRET=/app/dw-secret \
+                        containers.mpi-internal.com/yapo/incremental-product-order:feat_incremental-product-order
+  executionEnabled: true
+  group: CORE
+  loglevel: DEBUG
+  name: Core - Incremental Products Order
+  nodeFilterEditable: false
+  nodefilters:
+    dispatch:
+      excludePrecedence: true
+      keepgoing: false
+      rankOrder: ascending
+      successOnEmptyNodeFilter: false
+      threadcount: '1'
+    filter: 'name: dockerhost'
+  nodesSelectedByDefault: true
+  notifyAvgDurationThreshold: null
+  scheduleEnabled: false
+  sequence:
+    commands:
+    - script: |-
+        sudo docker pull containers.mpi-internal.com/yapo/incremental-product-order:feat_incremental-product-order
+        sudo docker run --rm --net=host \
+                        -v /home/bnbiuser/secrets/blocket_db:/app/db-secret \
+                        -v /home/bnbiuser/secrets/dw_db:/app/dw-secret \
+                        -e APP_DB_SECRET=/app/db-secret \
+                        -e APP_DW_SECRET=/app/dw-secret \
+                        containers.mpi-internal.com/yapo/incremental-product-order:feat_incremental-product-order
+    keepgoing: false
+    strategy: node-first
+  timeZone: America/Santiago
